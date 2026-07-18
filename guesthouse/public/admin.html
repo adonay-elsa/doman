@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Feedback Admin — Abyssinia Guest House</title>
+<style>
+  :root{--bg:#0f1216;--bg2:#161b21;--ink:#f4f1ea;--muted:#a7a497;--gold:#e0b352;--green:#1f8a5b;--red:#d23b3b;--line:rgba(224,179,82,.18)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Segoe UI",Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);padding:4vh 5vw;line-height:1.5}
+  h1{font-family:Georgia,serif;font-size:1.8rem;margin-bottom:.3rem}
+  .sub{color:var(--muted);margin-bottom:1.5rem}
+  .bar{display:flex;gap:1rem;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap}
+  .bar input{background:#0c0f13;border:1px solid var(--line);border-radius:8px;padding:.6rem .8rem;color:var(--ink);min-width:220px}
+  .btn{background:var(--gold);color:#11151a;border:none;padding:.6rem 1.2rem;border-radius:8px;font-weight:600;cursor:pointer}
+  .btn.ghost{background:transparent;color:var(--gold);border:1px solid var(--gold)}
+  .count{margin-left:auto;color:var(--muted)}
+  .item{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:1.2rem 1.4rem;margin-bottom:1rem}
+  .item .top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+  .item .name{font-weight:700;font-size:1.05rem}
+  .item .meta{color:var(--muted);font-size:.82rem}
+  .item .stars{color:var(--gold);letter-spacing:2px}
+  .item .msg{margin:.7rem 0;white-space:pre-wrap}
+  .item .del{background:transparent;border:1px solid var(--red);color:var(--red);border-radius:6px;padding:.3rem .8rem;cursor:pointer;font-size:.8rem}
+  .empty{color:var(--muted);text-align:center;padding:3rem}
+  a.back{color:var(--gold);text-decoration:none;font-size:.9rem}
+</style>
+</head>
+<body>
+  <h1>Guest Feedback</h1>
+  <p class="sub">Admin view — protected by access key.</p>
+
+  <div class="bar">
+    <input id="key" placeholder="Admin key" />
+    <button class="btn" id="load">Load Feedback</button>
+    <button class="btn ghost" id="refresh">Refresh</button>
+    <span class="count" id="count"></span>
+  </div>
+
+  <div id="list"></div>
+  <p style="margin-top:2rem"><a class="back" href="/">← Back to site</a></p>
+
+<script>
+  const keyInput = document.getElementById('key');
+  const list = document.getElementById('list');
+  const count = document.getElementById('count');
+  keyInput.value = new URLSearchParams(location.search).get('key') || '';
+
+  async function load() {
+    const key = keyInput.value.trim();
+    if (!key) { list.innerHTML = '<p class="empty">Enter the admin key to view feedback.</p>'; return; }
+    try {
+      const res = await fetch('/api/feedback?key=' + encodeURIComponent(key));
+      if (res.status === 401) { list.innerHTML = '<p class="empty">Unauthorized. Check your key.</p>'; return; }
+      const data = await res.json();
+      const fb = data.feedback || [];
+      count.textContent = fb.length + ' message(s)';
+      if (!fb.length) { list.innerHTML = '<p class="empty">No feedback yet.</p>'; return; }
+      fb.slice().reverse().forEach(f => {
+        const stars = f.rating ? '★'.repeat(f.rating) + '☆'.repeat(5 - f.rating) : '—';
+        const div = document.createElement('div');
+        div.className = 'item';
+        div.innerHTML = `
+          <div class="top">
+            <span class="name">${esc(f.name)}</span>
+            <span class="stars">${stars}</span>
+          </div>
+          <div class="meta">${f.email ? esc(f.email) + ' · ' : ''}${new Date(f.createdAt).toLocaleString()}</div>
+          <div class="msg">${esc(f.message)}</div>
+          <button class="del" data-id="${f.id}">Delete</button>`;
+        list.appendChild(div);
+      });
+      list.querySelectorAll('.del').forEach(b => b.onclick = () => del(b.dataset.id));
+    } catch {
+      list.innerHTML = '<p class="empty">Error loading feedback.</p>';
+    }
+  }
+
+  async function del(id) {
+    const key = keyInput.value.trim();
+    if (!confirm('Delete this feedback?')) return;
+    await fetch('/api/feedback/' + id + '?key=' + encodeURIComponent(key), { method: 'DELETE' });
+    load();
+  }
+
+  function esc(s){return (s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+  document.getElementById('load').onclick = load;
+  document.getElementById('refresh').onclick = load;
+  if (keyInput.value) load();
+</script>
+</body>
+</html>

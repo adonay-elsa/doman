@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Abyssinia Guest House — Comfort, Culture, Hospitality</title>
+<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+<header class="nav">
+  <div class="brand">Abyssinia<span>Guest House</span></div>
+  <nav>
+    <a href="#rooms">Rooms</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <a href="#feedback">Feedback</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Welcome to Ethiopian Hospitality</p>
+    <h1>Your Home Away from Home in the Heart of Ethiopia</h1>
+    <p class="lead">A peaceful guest house offering warm service, comfortable rooms, and authentic local experiences for travelers from around the world.</p>
+    <div class="hero-actions">
+      <a class="btn" href="#rooms">View Rooms</a>
+      <a class="btn ghost" href="#feedback">Leave Feedback</a>
+    </div>
+  </div>
+</section>
+
+<section id="rooms" class="section">
+  <h2>Our Rooms</h2>
+  <p class="section-sub">Clean, comfortable, and thoughtfully designed for rest after a day of exploring.</p>
+  <div class="cards">
+    <div class="card">
+      <h3>Standard Room</h3>
+      <p>Cozy single/double room with private bathroom, Wi-Fi, and daily cleaning.</p>
+      <span class="price">from ETB 900 / night</span>
+    </div>
+    <div class="card">
+      <h3>Deluxe Room</h3>
+      <p>Spacious room with balcony, work desk, and premium bedding.</p>
+      <span class="price">from ETB 1,400 / night</span>
+    </div>
+    <div class="card">
+      <h3>Family Suite</h3>
+      <p>Two-room suite ideal for families, with lounge area and kitchenette.</p>
+      <span class="price">from ETB 2,200 / night</span>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="section alt">
+  <h2>About Us</h2>
+  <p class="section-sub">We combine the warmth of Ethiopian hospitality with the convenience modern travelers expect.</p>
+  <div class="about-grid">
+    <div><strong>24/7</strong><span>Reception & airport pickup</span></div>
+    <div><strong>Free Wi-Fi</strong><span>Throughout the property</span></div>
+    <div><strong>Local Tours</strong><span>Curated cultural experiences</span></div>
+    <div><strong>On-site Dining</strong><span>Traditional Ethiopian meals</span></div>
+  </div>
+</section>
+
+<section id="contact" class="section">
+  <h2>Contact & Booking</h2>
+  <p class="section-sub">Reach us directly — we usually respond within a few hours.</p>
+  <div class="contact">
+    <p><strong>Phone / WhatsApp:</strong> +251 9X XXX XXXX</p>
+    <p><strong>Email:</strong> stay@abyssiniaguesthouse.et</p>
+    <p><strong>Address:</strong> Addis Ababa, Ethiopia</p>
+  </div>
+</section>
+
+<section id="feedback" class="section alt">
+  <h2>Share Your Feedback</h2>
+  <p class="section-sub">Your experience helps us improve and helps future travelers choose well.</p>
+  <form id="feedbackForm" class="form">
+    <div class="row">
+      <label>Name *<input name="name" required maxlength="100" placeholder="Your name" /></label>
+      <label>Email<input name="email" type="email" maxlength="150" placeholder="you@email.com" /></label>
+    </div>
+    <label>Rating
+      <select name="rating">
+        <option value="5">★★★★★ Excellent</option>
+        <option value="4">★★★★☆ Very Good</option>
+        <option value="3">★★★☆☆ Good</option>
+        <option value="2">★★☆☆☆ Fair</option>
+        <option value="1">★☆☆☆☆ Poor</option>
+        <option value="0">No rating</option>
+      </select>
+    </label>
+    <label>Message *<textarea name="message" required maxlength="2000" rows="5" placeholder="Tell us about your stay..."></textarea></label>
+    <button class="btn" type="submit">Send Feedback</button>
+    <p id="formStatus" class="status"></p>
+  </form>
+</section>
+
+<footer class="footer">
+  <p>© <span id="year"></span> Abyssinia Guest House · Addis Ababa, Ethiopia</p>
+  <p class="muted">Built for the future of Ethiopian hospitality.</p>
+</footer>
+
+<script src="/app.js"></script>
+</body>
+</html>

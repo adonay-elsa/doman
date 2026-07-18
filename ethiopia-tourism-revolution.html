@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ethiopia's Tourism Revolution — Is Your Business Ready for the Future?</title>
+<style>
+  :root {
+    --bg: #0b0d10;
+    --bg-2: #11151a;
+    --ink: #f4f1ea;
+    --muted: #a7a497;
+    --gold: #e0b352;
+    --gold-soft: #f2cf86;
+    --green: #1f8a5b;
+    --red: #d23b3b;
+    --line: rgba(224,179,82,0.18);
+    --card: rgba(255,255,255,0.04);
+    --shadow: 0 30px 80px rgba(0,0,0,0.55);
+    --serif: "Georgia", "Times New Roman", serif;
+    --sans: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    overflow: hidden;
+  }
+
+  .deck {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 7vh 9vw;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(24px) scale(0.99);
+    transition: opacity .7s ease, transform .7s ease, visibility .7s;
+    background:
+      radial-gradient(120% 120% at 85% 10%, rgba(224,179,82,0.10), transparent 55%),
+      radial-gradient(120% 120% at 0% 100%, rgba(31,138,91,0.10), transparent 55%),
+      linear-gradient(160deg, var(--bg) 0%, var(--bg-2) 100%);
+    overflow: hidden;
+  }
+
+  .slide.active {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .slide .accent-bar {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 6px;
+    background: linear-gradient(180deg, var(--green), var(--gold), var(--red));
+    opacity: .8;
+  }
+
+  .eyebrow {
+    font-size: clamp(11px, 1.1vw, 14px);
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+    font-weight: 600;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(30px, 5.2vw, 72px);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    max-width: 18ch;
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(26px, 4vw, 56px);
+    line-height: 1.08;
+    max-width: 20ch;
+  }
+
+  .subtitle {
+    margin-top: 1.4rem;
+    font-size: clamp(15px, 1.7vw, 24px);
+    color: var(--muted);
+    max-width: 46ch;
+    font-weight: 300;
+  }
+
+  .lead {
+    margin-top: 1.8rem;
+    font-size: clamp(15px, 1.8vw, 22px);
+    line-height: 1.6;
+    color: #d9d4c8;
+    max-width: 60ch;
+    font-weight: 300;
+  }
+
+  .quote {
+    margin-top: 2rem;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(18px, 2.4vw, 34px);
+    line-height: 1.4;
+    color: var(--gold-soft);
+    border-left: 3px solid var(--gold);
+    padding-left: 1.4rem;
+    max-width: 50ch;
+  }
+
+  .grid {
+    display: grid;
+    gap: 1.1rem;
+    margin-top: 2.2rem;
+  }
+  .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1.4rem 1.5rem;
+    backdrop-filter: blur(4px);
+  }
+  .card h3 {
+    font-family: var(--serif);
+    font-size: clamp(16px, 1.6vw, 22px);
+    margin-bottom: .5rem;
+    color: var(--ink);
+  }
+  .card p {
+    font-size: clamp(13px, 1.2vw, 16px);
+    color: var(--muted);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+  .card .tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: .6rem;
+  }
+
+  .feature-list {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 1rem 2.4rem;
+    max-width: 70ch;
+  }
+  .feature-list li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    font-size: clamp(14px, 1.5vw, 19px);
+    font-weight: 300;
+    color: #e6e1d6;
+  }
+  .feature-list li::before {
+    content: "";
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex: 0 0 auto;
+    box-shadow: 0 0 0 4px rgba(224,179,82,0.15);
+  }
+
+  .compare {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.1rem;
+  }
+  .compare .card .label {
+    font-size: 13px; letter-spacing:.15em; text-transform: uppercase;
+    color: var(--gold); margin-bottom:.5rem;
+  }
+  .compare .card .role {
+    font-family: var(--serif); font-size: clamp(16px,1.5vw,21px); margin-bottom:.4rem;
+  }
+  .compare .card .desc { font-size:13px; }
+
+  .visual {
+    position: absolute;
+    right: 6vw; bottom: 6vh;
+    width: 30vw; max-width: 420px;
+    opacity: .18;
+    pointer-events: none;
+    filter: grayscale(10%);
+  }
+
+  .footer-mark {
+    position: absolute;
+    bottom: 3.2vh; left: 9vw;
+    font-size: 11px; letter-spacing: .25em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .page-num {
+    position: absolute;
+    bottom: 3.2vh; right: 9vw;
+    font-size: 12px; letter-spacing: .2em; color: var(--muted);
+  }
+
+  /* Navigation */
+  .nav {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    display: flex; align-items: center; justify-content: center;
+    gap: 1rem;
+    padding: 1.2rem;
+    z-index: 50;
+  }
+  .dots { display: flex; gap: .55rem; }
+  .dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: rgba(255,255,255,0.22);
+    cursor: pointer; transition: all .3s;
+  }
+  .dot.active { background: var(--gold); transform: scale(1.3); }
+  .arrow {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .25s;
+  }
+  .arrow:hover { background: var(--gold); color: #11151a; border-color: var(--gold); }
+  .progress {
+    position: fixed; top: 0; left: 0; height: 3px;
+    background: linear-gradient(90deg, var(--green), var(--gold), var(--red));
+    z-index: 60; transition: width .5s ease;
+  }
+
+  .hint {
+    position: fixed; top: 2vh; right: 9vw;
+    font-size: 11px; color: var(--muted); letter-spacing:.15em;
+  }
+
+  /* Cover */
+  .cover .badge {
+    display: inline-flex; align-items:center; gap:.6rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: .5rem 1.1rem;
+    font-size: 12px; letter-spacing: .25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 2rem;
+  }
+  .cover .badge .flag {
+    display: inline-flex; gap:2px;
+  }
+  .cover .badge .flag i { width:10px; height:10px; border-radius:2px; display:inline-block; }
+  .cover .badge .flag .g { background: var(--green); }
+  .cover .badge .flag .y { background: var(--gold); }
+  .cover .badge .flag .r { background: var(--red); }
+
+  .three-world {
+    margin-top: 2.6rem;
+    display: grid; grid-template-columns: repeat(3, auto);
+    gap: 1.2rem;
+    align-items: center;
+  }
+  .three-world .w {
+    font-family: var(--serif);
+    font-size: clamp(18px, 2.4vw, 32px);
+    color: var(--ink);
+  }
+  .three-world .w small {
+    display:block; font-family: var(--sans); font-size:12px; letter-spacing:.2em;
+    text-transform: uppercase; color: var(--muted); margin-top:.4rem;
+  }
+  .three-world .sep { color: var(--gold); font-size: clamp(20px,3vw,40px); }
+
+  .closing .big {
+    font-family: var(--serif);
+    font-size: clamp(22px, 3vw, 42px);
+    line-height: 1.5;
+    color: var(--gold-soft);
+    max-width: 24ch;
+  }
+  .closing .final {
+    margin-top: 2rem;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(18px, 2.2vw, 30px);
+    line-height: 1.5;
+    color: var(--ink);
+    max-width: 40ch;
+  }
+
+  @media (max-width: 820px) {
+    .slide { padding: 6vh 7vw; }
+    .grid.cols-2, .grid.cols-3, .grid.cols-4, .compare, .feature-list { grid-template-columns: 1fr; }
+    .visual { display: none; }
+    .three-world { grid-template-columns: 1fr; gap:.6rem; }
+    .three-world .sep { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="hint">Use ← → or space to navigate</div>
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1 — COVER -->
+  <section class="slide cover active">
+    <div class="accent-bar"></div>
+    <div class="badge">
+      <span class="flag"><i class="g"></i><i class="y"></i><i class="r"></i></span>
+      Ethiopia · Hospitality · Digital Future
+    </div>
+    <h1>Ethiopia's Tourism Future Starts Today</h1>
+    <p class="subtitle">Preparing Ethiopian Hospitality Businesses for a Global Market</p>
+
+    <div class="three-world">
+      <div class="w">The world is changing.<small>A connected global traveler</small></div>
+      <div class="sep">·</div>
+      <div class="w">Ethiopia is changing.<small>A nation transforming</small></div>
+      <div class="sep">·</div>
+      <div class="w">Tourists are changing.<small>They book before they fly</small></div>
+    </div>
+
+    <svg class="visual" viewBox="0 0 200 200" fill="none" stroke="var(--gold)" stroke-width="2">
+      <circle cx="100" cy="100" r="90" opacity=".5"/>
+      <path d="M40 130 L80 70 L100 110 L125 55 L160 130 Z" fill="rgba(224,179,82,0.08)"/>
+      <circle cx="100" cy="100" r="40"/>
+    </svg>
+    <div class="footer-mark">A Presentation for Ethiopia's Hospitality Leaders</div>
+    <div class="page-num">01 / 10</div>
+  </section>
+
+  <!-- SLIDE 2 -->
+  <section class="slide">
+    <div class="accent-bar"></div>
+    <div class="eyebrow">The Opportunity of a Generation</div>
+    <h2>Ethiopia Is Emerging as Africa's Tourism Gateway</h2>
+    <p class="lead">Addis Ababa is becoming the continent's diplomatic capital. Tourism infrastructure is expanding, international attention is growing, and Ethiopia's unique culture and history are drawing the world's curiosity.</p>
+    <div class="grid cols-4" style="margin-top:2.4rem">
+      <div class="card"><span class="tag">Diplomacy</span><h3>Continental Capital</h3><p>Addis Ababa anchors Africa's diplomatic and institutional presence.</p></div>
+      <div class="card"><span class="tag">Infrastructure</span><h3>Tourism Build-Out</h3><p>New hotels, roads, and aviation links connect Ethiopia to the world.</p></div>
+      <div class="card"><span class="tag">Attention</span><h3>Global Spotlight</h3><p>International media and investors are turning their eyes to Ethiopia.</p></div>
+      <div class="card"><span class="tag">Heritage</span><h3>Living History</h3><p>Ancient culture, cuisine, and landscapes found nowhere else on earth.</p></div>
+    </div>
+    <div class="quote">Ethiopia has all the ingredients to become one of Africa's leading tourism destinations.</div>
+    <div class="footer-mark">Ethiopia's Tourism Revolution</div>
+    <div class="page-num">02 / 10</div>
+  </section>
+
+  <!-- SLIDE 3 -->
+  <section class="slide">
+    <div class="accent-bar"></div>
+    <div class="eyebrow">Global Visibility</div>
+    <h2>The World Is Looking at Ethiopia</h2>
+    <p class="lead">From international conferences to global organizations headquartered in Addis Ababa, Ethiopia's visibility is at an all-time high. Every summit multiplies the number of decision-makers, travelers, and investors who discover the country.</p>
+    <div class="grid cols-2" style="margin-top:2.2rem">
+      <div class="card"><h3>International Conferences & COP</h3><p>Major diplomatic gatherings like COP place Ethiopia at the center of global conversations and media coverage.</p></div>
+      <div class="card"><h3>Global Organizations</h3><p>Continental and UN institutions based in Addis Ababa drive steady, high-value business and diplomatic travel.</p></div>
+      <div class="card"><h3>Business Travel Growth</h3><p>A rising tide of corporate, NGO, and investment travel demands professional, bookable hospitality.</p></div>
+      <div class="card"><h3>Cultural Tourism</h3><p>Heritage, festivals, and cuisine create experiences international visitors actively seek out.</p></div>
+    </div>
+    <div class="footer-mark">Ethiopia's Tourism Revolution</div>
+    <div class="page-num">03 / 10</div>
+  </section>
+
+  <!-- SLIDE 4 -->
+  <section class="slide">
+    <div class="accent-bar"></div>
+    <div class="eyebrow">History Shows What Happens Next</div>
+    <h2>Countries That Went Digital First Became Tourism Leaders</h2>
+    <div class="grid cols-4" style="margin-top:2rem">
+      <div class="card"><span class="tag">Rwanda</span><h3>Premium Positioning</h3><p>Invested in national branding and digital tourism services to become one of Africa's premium destinations.</p></div>
+      <div class="card"><span class="tag">Dubai · UAE</span><h3>Experience at Scale</h3><p>Combined world-class hospitality with digital experiences to become a global tourism leader.</p></div>
+      <div class="card"><span class="tag">Saudi Arabia</span><h3>Reform & Investment</h3><p>Economic reforms accelerated tourism investment and opened massive opportunity for digitally prepared businesses.</p></div>
+      <div class="card"><span class="tag">Morocco</span><h3>Modern & Authentic</h3><p>Modernized tourism while preserving local culture and identity — a model for Ethiopia.</p></div>
+    </div>
+    <div class="quote">Countries that embraced digital transformation early became tourism leaders.</div>
+    <div class="footer-mark">Ethiopia's Tourism Revolution</div>
+    <div class="page-num">04 / 10</div>
+  </section>
+
+  <!-- SLIDE 5 -->
+  <section class="slide">
+    <div class="accent-bar"></div>
+    <div class="eyebrow">Reform Creates Opportunity — and Competition</div>
+    <h2>Economic Reform Opens the Door — and the Market</h2>
+    <p class="lead">Ethiopia's economic reforms are attracting investment and international brands. As competition intensifies, customers will have more choices than ever before.</p>
+    <div class="feature-list" style="grid-template-columns:1fr; max-width:70ch">
+      <li>Reforms are drawing foreign direct investment into hospitality and tourism.</li>
+      <li>International brands may enter the market and raise the bar for experience.</li>
+      <li>Competition will increase across price, quality, and visibility.</li>
+      <li>Travelers will compare and choose before they ever arrive.</li>
+    </div>
+    <div class="quote">The future competition for local businesses may not come only from across the street, but from international brands entering the market.</div>
+    <div class="footer-mark">Ethiopia's Tourism Revolution</div>
+    <div class="page-num">05 / 10</div>
+  </section>
+
+  <!-- SLIDE 6 -->
+  <section class="slide">
+    <div class="accent-bar"></div>
+    <div class="eyebrow">Discovery vs. Decision</div>
+    <h2>Google Maps Helps Tourists Find You. Your Website Helps Them Choose You.</h2>
+    <div class="compare" style="margin-top:2rem">
+      <div class="card"><div class="label">Discovery</div><div class="role">Google Maps</div><div class="desc">Puts your location on the traveler's map.</div></div>
+      <div class="card"><div class="label">Comparison</div><div class="role">Tripadvisor</div><div class="desc">Where guests weigh you against rivals.</div></div>
+      <div class="card"><div class="label">Engagement</div><div class="role">Social Media</div><div class="desc">Builds connection and desire over time.</div></div>
+      <div class="card"><div class="label">Conversion</div><div class="role">Your Website</div><div class="desc">Trust, storytelling, and the booking decision.</div></div>
+    </div>
+    <div class="quote">Google Maps brings customers to your door. Your website invites them inside.</div>
+    <div class="footer-mark">Ethiopia's Tourism Revolution</div>
+    <div class="page-num">06 / 10</div>
+  </section>
+
+  <!-- SLIDE 7 -->
+  <section class="slide">
+    <div class="accent-bar"></div>
+    <div class="eyebrow">The Modern Guest</div>
+    <h2>What International Tourists Expect</h2>
+    <p class="lead">Before they board a flight, global travelers research, compare, and decide. Meeting these basic expectations is now the price of entry to the international market.</p>
+    <div class="grid cols-4" style="margin-top:2rem">
+      <div class="card"><span class="tag">Trust</span><h3>Professional Website</h3><p>A credible, fast, mobile-ready presence.</p></div>
+      <div class="card"><span class="tag">Desire</span><h3>High-Quality Photos</h3><p>Visuals that sell the experience instantly.</p></div>
+      <div class="card"><span class="tag">Clarity</span><h3>Rooms & Menus</h3><p>Clear information on what you offer.</p></div>
+      <div class="card"><span class="tag">Ease</span><h3>Booking Requests</h3><p>Frictionless ways to reserve and inquire.</p></div>
+      <div class="card"><span class="tag">Comfort</span><h3>Airport Pickup</h3><p>Arrival details that reduce traveler anxiety.</p></div>
+      <div class="card"><span class="tag">Meaning</span><h3>Local Experiences</h3><p>Authentic tours, culture, and stories.</p></div>
+      <div class="card"><span class="tag">Access</span><h3>Multiple Languages</h3><p>Reach English, French, and other guests.</p></div>
+      <div class="card"><span class="tag">Proof</span><h3>Reviews & Socials</h3><p>Evidence others trusted and loved you.</p></div>
+    </div>
+    <div class="footer-mark">Ethiopia's Tourism Revolution</div>
+    <div class="page-num">07 / 10</div>
+  </section>
+
+  <!-- SLIDE 8 -->
+  <section class="slide">
+    <div class="accent-bar"></div>
+    <div class="eyebrow">The Mandate</div>
+    <h2>Rebrand. Digitize. Lead.</h2>
+    <p class="lead">Success in the new era demands more than a logo. It requires modernizing your brand, elevating the customer experience, and building digital trust — while staying true to the warmth of Ethiopian hospitality.</p>
+    <div class="grid cols-3" style="margin-top:2.2rem">
+      <div class="card"><span class="tag">Modernize</span><h3>Brand</h3><p>A distinctive identity that signals quality and confidence.</p></div>
+      <div class="card"><span class="tag">Elevate</span><h3>Experience</h3><p>Seamless digital and on-site experiences guests remember.</p></div>
+      <div class="card"><span class="tag">Preserve</span><h3>Hospitality</h3><p>Ethiopian warmth amplified — not replaced — by technology.</p></div>
+    </div>
+    <div class="footer-mark">Ethiopia's Tourism Revolution</div>
+    <div class="page-num">08 / 10</div>
+  </section>
+
+  <!-- SLIDE 9 -->
+  <section class="slide">
+    <div class="accent-bar"></div>
+    <div class="eyebrow">Our Services</div>
+    <h2>Everything You Need to Be Found, Trusted, and Booked</h2>
+    <div class="grid cols-3" style="margin-top:2.2rem">
+      <div class="card"><span class="tag">Build</span><h3>Website Development</h3><p>Fast, beautiful, mobile-first sites that convert.</p></div>
+      <div class="card"><span class="tag">Discover</span><h3>Google Maps Optimization</h3><p>Be found by travelers already searching nearby.</p></div>
+      <div class="card"><span class="tag">Reputation</span><h3>Tripadvisor Management</h3><p>Own the comparison and win the booking.</p></div>
+      <div class="card"><span class="tag">Identity</span><h3>Branding & Rebranding</h3><p>Position your business as a premium choice.</p></div>
+      <div class="card"><span class="tag">Visibility</span><h3>SEO</h3><p>Rank where international guests are looking.</p></div>
+      <div class="card"><span class="tag">Reach</span><h3>Digital Marketing</h3><p>Targeted campaigns across social and search.</p></div>
+      <div class="card"><span class="tag">Story</span><h3>Photography & Visuals</h3><p>Cinematic imagery that sells the experience.</p></div>
+      <div class="card"><span class="tag">Growth</span><h3>Presence Management</h3><p>Always-on monitoring, updates, and care.</p></div>
+      <div class="card"><span class="tag">Partnership</span><h3>Strategy & Support</h3><p>A long-term partner in your digital growth.</p></div>
+    </div>
+    <div class="footer-mark">Ethiopia's Tourism Revolution</div>
+    <div class="page-num">09 / 10</div>
+  </section>
+
+  <!-- SLIDE 10 — CLOSING -->
+  <section class="slide closing">
+    <div class="accent-bar"></div>
+    <div class="eyebrow">The Time to Move Is Now</div>
+    <div class="big">
+      Ten years ago, having a website was an advantage.<br/>
+      Today, it is expected.<br/>
+      Tomorrow, it will be essential.
+    </div>
+    <div class="final">
+      Ethiopia's tourism future is being built today.<br/>
+      The only question is whether your business will help shape it — or struggle to catch up with it.
+    </div>
+    <svg class="visual" viewBox="0 0 200 200" fill="none" stroke="var(--gold)" stroke-width="2">
+      <circle cx="100" cy="100" r="90" opacity=".5"/>
+      <path d="M50 120 Q100 40 150 120" stroke="var(--green)"/>
+      <path d="M50 120 Q100 60 150 120" stroke="var(--red)"/>
+      <circle cx="100" cy="100" r="20" fill="rgba(224,179,82,0.1)"/>
+    </svg>
+    <div class="footer-mark">Rebrand · Digitize · Lead</div>
+    <div class="page-num">10 / 10</div>
+  </section>
+
+</div>
+
+<div class="nav">
+  <button class="arrow" id="prev" aria-label="Previous">‹</button>
+  <div class="dots" id="dots"></div>
+  <button class="arrow" id="next" aria-label="Next">›</button>
+</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const dotsWrap = document.getElementById('dots');
+  const progress = document.getElementById('progress');
+  let current = 0;
+
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.addEventListener('click', () => go(i));
+    dotsWrap.appendChild(d);
+  });
+  const dots = Array.from(dotsWrap.children);
+
+  function go(i) {
+    current = Math.max(0, Math.min(slides.length - 1, i));
+    slides.forEach((s, idx) => s.classList.toggle('active', idx === current));
+    dots.forEach((d, idx) => d.classList.toggle('active', idx === current));
+    progress.style.width = ((current) / (slides.length - 1)) * 100 + '%';
+  }
+
+  document.getElementById('prev').addEventListener('click', () => go(current - 1));
+  document.getElementById('next').addEventListener('click', () => go(current + 1));
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); go(current + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(current - 1); }
+    if (e.key === 'Home') go(0);
+    if (e.key === 'End') go(slides.length - 1);
+  });
+
+  // Touch swipe
+  let startX = null;
+  window.addEventListener('touchstart', e => startX = e.touches[0].clientX, {passive:true});
+  window.addEventListener('touchend', e => {
+    if (startX === null) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 50) go(current + (dx < 0 ? 1 : -1));
+    startX = null;
+  }, {passive:true});
+
+  go(0);
+</script>
+</body>
+</html>

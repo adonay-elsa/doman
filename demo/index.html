@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoDrive - Car Sales & Care</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="brand">Auto<span>Drive</span></div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#cars">Cars for Sale</a>
+      <a href="#contact">Feedback / Appointment</a>
+    </nav>
+  </header>
+
+  <!-- Section 1: Home -->
+  <section id="home" class="hero">
+    <div class="hero-text">
+      <h1>Find Your Perfect Car</h1>
+      <p>Quality vehicles and trusted car care, all in one place. Browse our stock or book a visit with our team today.</p>
+      <a class="btn" href="#cars">View Cars</a>
+      <a class="btn btn-outline" href="#contact">Book Appointment</a>
+    </div>
+  </section>
+
+  <!-- Section 2: Cars for Sale -->
+  <section id="cars" class="section">
+    <h2>Cars for Sale</h2>
+    <div class="car-grid" id="carGrid"></div>
+  </section>
+
+  <!-- Section 3: Feedback / Appointment -->
+  <section id="contact" class="section">
+    <h2>Feedback & Appointment</h2>
+
+    <div class="forms">
+      <form id="feedbackForm" class="card">
+        <h3>Leave Feedback</h3>
+        <label>Name <input type="text" name="name" required /></label>
+        <label>Email <input type="email" name="email" required /></label>
+        <label>Message <textarea name="message" rows="4" required></textarea></label>
+        <button type="submit" class="btn">Send Feedback</button>
+        <p class="msg" id="feedbackMsg"></p>
+      </form>
+
+      <form id="appointmentForm" class="card">
+        <h3>Book an Appointment</h3>
+        <label>Name <input type="text" name="name" required /></label>
+        <label>Email <input type="email" name="email" required /></label>
+        <label>Phone <input type="text" name="phone" /></label>
+        <label>Preferred Date <input type="date" name="date" required /></label>
+        <label>Car of Interest
+          <select name="car">
+            <option value="Any">Any / General visit</option>
+            <option value="Toyota Corolla 2021">Toyota Corolla 2021</option>
+            <option value="Honda Civic 2020">Honda Civic 2020</option>
+            <option value="Ford Focus 2022">Ford Focus 2022</option>
+          </select>
+        </label>
+        <label>Notes <textarea name="notes" rows="3"></textarea></label>
+        <button type="submit" class="btn">Request Appointment</button>
+        <p class="msg" id="appointmentMsg"></p>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 AutoDrive Car Sales & Care. All rights reserved.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
