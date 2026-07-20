@@ -1,0 +1,11 @@
+[
+  {
+    "name": "John",
+    "email": "john@test.com",
+    "date": "2030-01-01",
+    "time": "12:00",
+    "guests": "2",
+    "notes": "window seat",
+    "receivedAt": "2026-07-18T11:20:10.086Z"
+  }
+]

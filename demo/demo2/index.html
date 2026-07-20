@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TableReserve - Book Your Table</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="brand">Table<span>Reserve</span></div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#reserve">Reserve</a>
+    </nav>
+  </header>
+
+  <!-- Section 1: Home -->
+  <section id="home" class="hero">
+    <div class="hero-text">
+      <h1>Reserve Your Table in Seconds</h1>
+      <p>Welcome to TableReserve. A cozy place to enjoy great food. Book your spot online and we'll confirm by email.</p>
+      <a class="btn" href="#reserve">Reserve a Table</a>
+    </div>
+  </section>
+
+  <!-- Section 2: Reserve a Table -->
+  <section id="reserve" class="section">
+    <h2>Reserve a Table</h2>
+
+    <form id="reserveForm" class="card">
+      <label>Name <input type="text" name="name" required /></label>
+      <label>Email <input type="email" name="email" required /></label>
+      <label>Phone <input type="text" name="phone" /></label>
+      <label>Date <input type="date" name="date" required /></label>
+      <label>Time <input type="time" name="time" required /></label>
+      <label>Number of Guests
+        <select name="guests" required>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6+">6+</option>
+        </select>
+      </label>
+      <label>Notes <textarea name="notes" rows="3"></textarea></label>
+      <button type="submit" class="btn">Confirm Reservation</button>
+      <p class="msg" id="reserveMsg"></p>
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 TableReserve. All rights reserved.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
